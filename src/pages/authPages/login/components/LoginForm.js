@@ -11,6 +11,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import useStyles from "../../AuthFromsStyles";
 // import LoadingButton from "@components/loading/LoadingButton";
 import LoadingButton from "../../../../components/loading/LoadingButton";
+import SocialButton, {FacebookButton, GoogleButton, InstegramButton} from "./SocialButton";
 const LoginForm = props => {
   const {
     values: { phone_number_or_email, password },
@@ -19,8 +20,15 @@ const LoginForm = props => {
     handleChange,
     isValid
   } = props;
-  const classes = useStyles();
 
+  const handleSocialLogin = (user) => {
+    console.log(user)
+  }
+
+  const handleSocialLoginFailure = (err) => {
+    console.error(err)
+  }
+  const classes = useStyles();
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.root}>
@@ -83,6 +91,7 @@ const LoginForm = props => {
           >
             Log In
           </LoadingButton>
+
           <Grid container>
             <Grid item xs>
               <MUILink component={Link} to="/reset-password" variant="body2">
@@ -98,6 +107,35 @@ const LoginForm = props => {
         </form>
         {/*<button><a href='{% provider_login_url "facebook" method="js_sdk"%}'>Facebook Login</a></button>*/}
         {/*<button><a href='{% provider_login_url "google" %}'>Google Login</a></button>*/}
+        <FacebookButton
+            provider='facebook'
+            appId='YOUR_APP_ID'
+            onLoginSuccess={handleSocialLogin}
+            onLoginFailure={handleSocialLoginFailure}
+        >
+          Continue with Facebook
+        </FacebookButton>
+        <InstegramButton
+            provider='instagram'
+            appId='YOUR_APP_ID'
+            onLoginSuccess={handleSocialLogin}
+            onLoginFailure={handleSocialLoginFailure}
+        >
+          Continue with Instagram
+        </InstegramButton>
+        <GoogleButton
+            provider='google'
+            appId='901203395718-5hr5scbjg28dhlpv7dnemc6dad486urp.apps.googleusercontent.com'
+            onLoginSuccess={handleSocialLogin}
+            onLoginFailure={handleSocialLoginFailure}
+            // onLogoutSuccess={this.onLogoutSuccess}
+            // onLogoutFailure={this.onLogoutFailure}
+            // getInstance={this.setNodeRef.bind(this, 'google')}
+            key={'google'}
+            scope={'https://www.googleapis.com/auth/user.gender.read'}
+        >
+          Continue with Google
+        </GoogleButton>
       </div>
     </Container>
   );

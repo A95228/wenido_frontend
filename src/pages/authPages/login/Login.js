@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import LoginForm from "./components/LoginForm";
 import { login } from "../../../redux/actions/authActions";
 import { phone_number_or_email_reg } from "../regexes";
+import SocialButton, {FacebookButton, GoogleButton, InstegramButton} from "./components/SocialButton";
 
 const validationSchema = Yup.object({
   phone_number_or_email: Yup.string()
@@ -31,14 +32,16 @@ const Login = () => {
     dispatch(login(user, setErrors, resetForm));
   };
 
+
   return (
-    <Formik
-      initialValues={values}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-    >
-      {props => <LoginForm {...props} />}
-    </Formik>
+        <Formik
+            initialValues={values}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+        >
+          {props => <LoginForm {...props} />}
+        </Formik>
+
   );
 };
 
