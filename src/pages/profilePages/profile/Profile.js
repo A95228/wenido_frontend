@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 
-import Products from "../allProducts";
+import MyProducts from "../myProducts";
 import Sidebar from "../Sidebar";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -29,7 +29,6 @@ const Profile = () => {
     const {
         first_name,
         last_name,
-        phone_number,
         national_code,
         email
     } = useSelector(state => state.auth.user);
@@ -50,10 +49,6 @@ const Profile = () => {
                               <Grid item md={6} xs={12}>
                                   <Typography variant="body1">First name:</Typography>
                                   <Typography variant="h6">{first_name || "-"}</Typography>
-                              </Grid>
-                              <Grid item md={6} xs={12}>
-                                  <Typography variant="body1">Phone number:</Typography>
-                                  <Typography variant="h6">{phone_number || "-"}</Typography>
                               </Grid>
                               <Grid item md={6} xs={12}>
                                   <Typography variant="body1">Last name:</Typography>

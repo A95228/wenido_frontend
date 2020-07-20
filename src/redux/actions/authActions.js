@@ -15,6 +15,7 @@ export const loadUser = () => dispatch => {
   axios
     .get("/api/user/")
     .then(response => {
+        console.log("this is load user",response.data)
       dispatch({ type: AUTH_SUCCESS, payload: response.data });
       dispatch({ type: STOP_LOADING_UI });
     })
@@ -23,15 +24,24 @@ export const loadUser = () => dispatch => {
       dispatch({ type: STOP_LOADING_UI });
     });
 };
+export const social_login = (email,provider)=>(dispatch, getState)=>{
+    dispatch({ type: START_LOADING_BUTTON });
+    // axios
+    //     .post("/api/auth/login/", email)
+}
 
 export const login = (user, setErrors, resetForm) => (dispatch, getState) => {
-  dispatch({ type: START_LOADING_BUTTON });
+    console.log("right?",user)
+
+    dispatch({ type: START_LOADING_BUTTON });
   axios
     .post("/api/auth/login/", user)
     .then(response => {
+        console.log("this is response",response.data)
       dispatch({ type: AUTH_SUCCESS, payload: response.data });
       dispatch({ type: STOP_LOADING_BUTTON });
-      resetForm();
+      if (resetForm)
+        resetForm();
       dispatch(
         addNotif({
           message: `Welcome ${getState().auth.user.first_name || ""}`,
@@ -41,24 +51,34 @@ export const login = (user, setErrors, resetForm) => (dispatch, getState) => {
     })
     .catch(error => {
       dispatch({ type: AUTH_FAIL });
+      if (setErrors)
       setErrors(error.response.data);
       dispatch({ type: STOP_LOADING_BUTTON });
     });
 };
 
 export const register = (user, setErrors, resetForm) => dispatch => {
+    console.log("this is user",user)
   dispatch({ type: START_LOADING_BUTTON });
   axios
     .post("/api/auth/register/", user)
     .then(response => {
       dispatch({ type: AUTH_SUCCESS, payload: response.data });
       dispatch({ type: STOP_LOADING_BUTTON });
-      resetForm();
+      if (resetForm)
+        resetForm();
       dispatch(addNotif({ message: "Your account registered successfully" }));
     })
     .catch(error => {
       dispatch({ type: AUTH_FAIL });
-      setErrors(error.response.data);
+      if (setErrors)
+        setErrors(error.response.data);
+      else{
+          console.log("will come")
+          // dispatch({ type: TRY_SOCIAL_LOGIN });
+          dispatch(login({...user,phone_number_or_email:user.email}));
+      }
+
       dispatch({ type: STOP_LOADING_BUTTON });
     });
 };

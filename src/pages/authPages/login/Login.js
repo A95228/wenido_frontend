@@ -41,7 +41,6 @@ const Login = () => {
         >
           {props => <LoginForm {...props} />}
         </Formik>
-
   );
 };
 

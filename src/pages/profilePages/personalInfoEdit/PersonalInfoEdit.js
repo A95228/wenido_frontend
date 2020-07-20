@@ -12,15 +12,11 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 import PersonalInfoEditForm from "./components/PersonalInfoEditForm";
 import Sidebar from "../Sidebar";
-import { phone_number_reg } from "../../authPages/regexes";
 import { updateUser } from "../../../redux/actions/authActions";
 
 const validationSchema = Yup.object({
   first_name: Yup.string().required(),
   last_name: Yup.string().required(),
-  phone_number: Yup.string()
-    .matches(phone_number_reg, "Invalid phone number")
-    .required(),
   national_code: Yup.number(),
   email: Yup.string().email()
 });
@@ -45,7 +41,6 @@ const PersonalInfoEdit = () => {
   const {
     first_name,
     last_name,
-    phone_number,
     national_code,
     email
   } = useSelector(state => state.auth.user);
@@ -55,7 +50,6 @@ const PersonalInfoEdit = () => {
   const values = {
     first_name: first_name || "",
     last_name: last_name || "",
-    phone_number: phone_number || "",
     national_code: national_code || "",
     email: email || ""
   };

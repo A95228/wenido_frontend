@@ -29,3 +29,5 @@ export const FETCH_ORDER = "FETCH_ORDER";
 export const CREATE_ORDER = "CREATE_ORDER";
 
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES"
+// -----new-profile----
+export const FETCH_MY_PRODUCTS = "FETCH_MY_PRODUCTS"

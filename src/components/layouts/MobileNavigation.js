@@ -39,7 +39,7 @@ const MobileNavigation = () => {
       <BottomNavigationAction
         onClick={() => history.push("/products")}
         value="/products"
-        label="Products"
+        label="MyProducts"
         icon={<ShopIcon />}
       />
       <BottomNavigationAction

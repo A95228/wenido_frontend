@@ -53,16 +53,14 @@ const Sidebar = ({ activeItem, children }) => {
             </ListItemLink>
 
             <ListItemLink
-                selected={activeItem === "allProducts"}
+                selected={activeItem === "myProducts"}
                 to="/profile/products"
             >
               <ListItemIcon>
                 <PersonalInfoIcon />
               </ListItemIcon>
-              <ListItemText primary="Products" />
+              <ListItemText primary="My Products" />
             </ListItemLink>
-
-
 
             <ListItemLink
               selected={activeItem === "orders"}

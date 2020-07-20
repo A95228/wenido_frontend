@@ -5,14 +5,14 @@ import * as Yup from "yup";
 
 import RegisterForm from "./components/RegisterForm";
 import { register } from "../../../redux/actions/authActions";
-import { phone_number_reg } from "../regexes";
+import { phone_number_reg,email_reg } from "../regexes";
 
 const validationSchema = Yup.object({
   first_name: Yup.string().required("Required field"),
   last_name: Yup.string().required("Required field"),
-  phone_number: Yup.string()
-    .matches(phone_number_reg, "Invalid phone number")
-    .required("Required field"),
+  email: Yup.string()
+    .matches(email_reg, "Iadfasdfasder").required("Required field"),
+
   password: Yup.string()
     .min(8, "Must be at least 8 characters")
     .required("Required field")
@@ -20,7 +20,7 @@ const validationSchema = Yup.object({
 
 const Register = () => {
   const values = {
-    phone_number: "",
+    email: "",
     password: "",
     first_name: "",
     last_name: ""
@@ -28,13 +28,13 @@ const Register = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (
-    { first_name, last_name, phone_number, password },
+    { first_name, last_name, email, password },
     { setErrors, resetForm }
   ) => {
     const user = {
       first_name,
       last_name,
-      phone_number,
+      email,
       password
     };
     dispatch(register(user, setErrors, resetForm));

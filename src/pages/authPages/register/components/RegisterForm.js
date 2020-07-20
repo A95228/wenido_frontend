@@ -13,7 +13,7 @@ import useStyles from "../../AuthFromsStyles";
 import LoadingButton from "../../../../components/loading/LoadingButton";
 const RegisterForm = props => {
   const {
-    values: { first_name, last_name, phone_number, password },
+    values: { first_name, last_name, email, password },
     errors,
     handleSubmit,
     handleChange,
@@ -70,15 +70,15 @@ const RegisterForm = props => {
                 variant="outlined"
                 required
                 fullWidth
-                id="phone_number"
-                label="Phone Number"
-                name="phone_number"
-                helperText={errors.phone_number}
+                id="email"
+                label="Email"
+                name="email"
+                helperText={errors.email}
                 error={
-                  Boolean(errors.phone_number) ||
+                  Boolean(errors.email) ||
                   Boolean(errors.non_field_errors)
                 }
-                value={phone_number}
+                value={email}
                 onChange={handleChange}
               />
             </Grid>

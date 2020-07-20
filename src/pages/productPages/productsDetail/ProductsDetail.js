@@ -7,6 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
+import Chip from "@material-ui/core/Chip";
 import Clipboard from "react-clipboard.js";
 import CloseIcon from "@material-ui/icons/Close";
 import FileCopyIcon from "@material-ui/icons/FileCopyOutlined";
@@ -21,6 +22,7 @@ import { addNotif } from "../../../redux/actions/notifActions";
 import LoadingButton from "../../../components/loading/LoadingButton";
 import ProductImages from "./components/ProductImages";
 import SizeGuide from "./components/SizeGuide";
+import DisplayPlace from "../../../components/MapBox/DisplayPlace";
 
 const useStyles = makeStyles(theme => ({
   mt1: {
@@ -83,11 +85,16 @@ const ProductsDetail = ({ match, history }) => {
 
   useEffect(() => {
     setOrderSize(product.default_size);
+    console.log("this is product",product)
   }, [product]);
 
   useEffect(() => {
     dispatch(fetchProduct(slug));
+
+
   }, [dispatch, slug]);
+
+
 
   const handleAddToCart = () => {
     if (isAuthenticated) {
@@ -104,7 +111,7 @@ const ProductsDetail = ({ match, history }) => {
     }
     history.push("/login");
   };
-
+  //TODO
   return (
     <div className={classes.mt1}>
       <Clipboard
@@ -142,8 +149,26 @@ const ProductsDetail = ({ match, history }) => {
         </Grid>
         <Grid item md xs={12} className={classes.mb2}>
           <Typography variant="h4" gutterBottom>
-            {product.title}
+            {
+              product.title
+
+            }
+
           </Typography>
+          {
+            // console.log("this is product",product.category)
+            product.category&&product.category.map((item,key)=>{
+              return <Chip label={item} color="primary" style={{marginRight:8,marginBottom:10}}/>
+            })
+
+          }
+          {
+            product.latitude&&
+            <DisplayPlace place={{center: [product.longitude, product.latitude]}} />
+          }
+
+
+
           {product.available === false ? (
             <Typography gutterBottom color="error" variant="h5" component="h2">
               {/*unavailable*/}

@@ -5,12 +5,14 @@ import {
   UPDATE_ADDRESS,
   FETCH_FAVORITE_PRODUCTS,
   FETCH_ORDERS,
-  FETCH_ORDER
+  FETCH_ORDER,
+  FETCH_MY_PRODUCTS
 } from "../types";
 
 const initialState = {
   addresses: [],
   favoriteProducts: [],
+  myProducts:[],
   orders: { orders: [], order: {} }
 };
 
@@ -40,6 +42,9 @@ export default (state = initialState, action) => {
         ...state,
         addresses: updatedAddresses
       };
+    case FETCH_MY_PRODUCTS:
+      return { ...state, myProducts: payload };
+
     case FETCH_FAVORITE_PRODUCTS:
       return { ...state, favoriteProducts: payload };
     case FETCH_ORDERS:

@@ -52,13 +52,13 @@ const Profile = React.lazy(() =>
 
 const ProfileProducts = React.lazy(() =>
   import(
-    /* webpackChunkName: "personal-info" */ "./pages/profilePages/allProducts"
+    /* webpackChunkName: "personal-info" */ "./pages/profilePages/myProducts"
   )
 );
 
 const AddProfileProduct = React.lazy(() =>
     import(
-        /* webpackChunkName: "personal-info-edit" */ "./pages/profilePages/allProducts/AddProduct"
+        /* webpackChunkName: "personal-info-edit" */ "./pages/profilePages/myProducts/AddProduct"
         )
 );
 
