@@ -15,7 +15,6 @@ export const loadUser = () => dispatch => {
   axios
     .get("/api/user/")
     .then(response => {
-        console.log("this is load user",response.data)
       dispatch({ type: AUTH_SUCCESS, payload: response.data });
       dispatch({ type: STOP_LOADING_UI });
     })
@@ -37,7 +36,6 @@ export const login = (user, setErrors, resetForm) => (dispatch, getState) => {
   axios
     .post("/api/auth/login/", user)
     .then(response => {
-        console.log("this is response",response.data)
       dispatch({ type: AUTH_SUCCESS, payload: response.data });
       dispatch({ type: STOP_LOADING_BUTTON });
       if (resetForm)
@@ -165,7 +163,7 @@ export const updateUser = (user, setErrors, history) => dispatch => {
     .then(response => {
       dispatch({ type: AUTH_SUCCESS, payload: response.data });
       dispatch({ type: STOP_LOADING_BUTTON });
-      history.push("/profile/personal-info");
+      history.push("/profile");
       dispatch(
         addNotif({
           message: "Personal info was updated",

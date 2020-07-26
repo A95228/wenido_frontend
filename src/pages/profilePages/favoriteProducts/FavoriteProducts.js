@@ -20,19 +20,17 @@ const FavoriteProducts = ({ history }) => {
     return null;
   }
 
-  if (products.length < 1) {
-    return (
-      <Typography style={{ marginTop: "10px" }} variant="h5">
-        Your favorite product is empty
-      </Typography>
-    );
-  }
-
   return (
     <Sidebar activeItem="favProducts">
       <div style={{ marginTop: "30px" }}>
         <Grid container spacing={2}>
-          {products.map(product => (
+          {
+            products.length < 1?
+            <Typography variant="h5">
+              Your favorite product is empty
+            </Typography>:
+
+          products.map(product => (
             <Grid key={product.id} item md={3} xs={12}>
               <ProductItem product={product} history={history} />
             </Grid>

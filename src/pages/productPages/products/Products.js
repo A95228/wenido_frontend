@@ -33,17 +33,6 @@ const Products = ({history, location}) => {
 
     return (
         <Grid container spacing={2} className={classes.root}>
-            <Grid container spacing={2}>
-                <Grid item md={3} xs={12}>
-                    <Categories/>
-                </Grid>
-                <Grid item md>
-                    <SearchInResults/>
-                </Grid>
-            </Grid>
-            <Grid container>
-                <SubmittedFilters/>
-            </Grid>
             <Grid container>
                 <p className="text-6xl font-bold text-gray-800 text-center w-full mt-24">
                     trade instead of sell.
@@ -68,16 +57,32 @@ const Products = ({history, location}) => {
             <Grid container>
                 <p className="text-4xl font-bold text-gray-800  w-full mt-40">Discover new products</p>
             </Grid>
+
+            {/*<Grid container spacing={2}>*/}
+            {/*    <Grid item md={3} xs={12}>*/}
+            {/*        <Categories />*/}
+            {/*    </Grid>*/}
+            {/*    <Grid item md>*/}
+            {/*        <SearchInResults />*/}
+            {/*    </Grid>*/}
+            {/*</Grid>*/}
+            {/*<Grid container>*/}
+            {/*    <SubmittedFilters />*/}
+            {/*</Grid>*/}
+
             <Grid container>
-                <Ordering location={location}/>
+                {/*<Ordering location={location}/>*/}
+                <button className="p-3 text-white font-bold text-lg gradientButton border-0 outline-none" onClick={()=>history.push('/products/filter')}>Are you finding all products?</button>
                 <Grid container spacing={1}>
-                    {products.map(product => (
-                        <Grid key={product.id} item md={3} xs={12}>
-                            <ProductItem product={product} history={history}/>
-                        </Grid>
-                    ))}
+                    {products.map((product,key) => {
+                        if (key===8) return;
+                            return <Grid key={product.id} item md={3} xs={12}>
+                                <ProductItem product={product} history={history}/>
+                            </Grid>
+                    })}
                 </Grid>
-                <Pagination location={location}/>
+
+                {/*<Pagination location={location}/>*/}
             </Grid>
         </Grid>
     );

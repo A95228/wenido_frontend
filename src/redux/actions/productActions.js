@@ -19,7 +19,6 @@ export const fetchProducts = (query = "?page=1") => dispatch => {
 export const fetchProduct = slug => dispatch => {
     dispatch({type: START_LOADING_UI});
     axios.get(`/api/products/${slug}/`).then(response => {
-        console.log("this is response",response.data)
         dispatch({type: FETCH_PRODUCT, payload: response.data});
         dispatch({type: STOP_LOADING_UI});
     });

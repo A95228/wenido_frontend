@@ -32,7 +32,6 @@ export const addNewProduct = newProduct => dispatch => {
 export const fetchMyProducts = () => dispatch => {
     dispatch({ type: START_LOADING_UI });
     axios.get("/api/products/myproducts/").then(response => {
-        console.log("this is response",response.data)
         dispatch({ type: FETCH_MY_PRODUCTS, payload: response.data });
         dispatch({ type: STOP_LOADING_UI });
     });

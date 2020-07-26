@@ -8,16 +8,13 @@ function SocialButtonsContainer(props) {
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
     useEffect(()=>{
         setLogged(isAuthenticated)
-        console.log("this is authenticated",isAuthenticated)
     })
     var nodes={}
     const [logged,setLogged] = React.useState(null)
     const [user,setUser] = React.useState({})
     const [currentProvider,setCurrentProvider] = React.useState({})
     const setNodeRef= function(provider, node){
-        console.log("this is provider",provider)
         if (node) {
-            console.log("this is provider",provider)
             nodes[ provider ] = node
         }
     }
@@ -65,7 +62,7 @@ function SocialButtonsContainer(props) {
     }
 
     return (
-        <div className="flex w-full rounded-lg justify-around py-5 mt-3 items-center" style={{background:'#e91e63'}}>
+        <div className="flex w-full rounded-lg justify-around py-5 mt-3 items-center" style={{background:'#fdd835'}}>
             <GoogleButton
                 provider='google'
                 appId='1004416048196-s0j8sriob9bjo9v60qb45b0jgkk7l7s4.apps.googleusercontent.com'

@@ -62,15 +62,15 @@ const Sidebar = ({ activeItem, children }) => {
               <ListItemText primary="My Products" />
             </ListItemLink>
 
-            <ListItemLink
-              selected={activeItem === "orders"}
-              to="/profile/orders"
-            >
-              <ListItemIcon>
-                <ShopingCartIcon color="action" />
-              </ListItemIcon>
-              <ListItemText primary="All orders" />
-            </ListItemLink>
+            {/*<ListItemLink*/}
+            {/*  selected={activeItem === "orders"}*/}
+            {/*  to="/profile/orders"*/}
+            {/*>*/}
+            {/*  <ListItemIcon>*/}
+            {/*    <ShopingCartIcon color="action" />*/}
+            {/*  </ListItemIcon>*/}
+            {/*  <ListItemText primary="All orders" />*/}
+            {/*</ListItemLink>*/}
 
 
             <ListItemLink

@@ -7,7 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import LoadingButton from "../../../../components/loading/LoadingButton";
 const PersonalInfoEditForm = props => {
   const {
-    values: { first_name, last_name, national_code, email },
+    values: { first_name, last_name, national_code, email, phone_number },
     errors,
     handleSubmit,
     handleChange,
@@ -63,6 +63,18 @@ const PersonalInfoEditForm = props => {
             error={Boolean(errors.email)}
             value={email}
             onChange={handleChange}
+          />
+        </Grid>
+
+        <Grid item md={6} xs={12}>
+          <TextField
+              name="phone_number"
+              label="Phone"
+              fullWidth
+              helperText={errors.phone_number}
+              error={Boolean(errors.phone_number)}
+              value={phone_number}
+              onChange={handleChange}
           />
         </Grid>
       </Grid>

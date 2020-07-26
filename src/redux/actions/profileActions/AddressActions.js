@@ -14,7 +14,8 @@ import { addNotif } from "../notifActions";
 
 export const fetchAddresses = () => dispatch => {
   dispatch({ type: START_LOADING_UI });
-  axios.get("/api/user/addresses/").then(response => {
+  axios.get("/api/addresses/").then(response => {
+
     dispatch({ type: FETCH_ADDRESSES, payload: response.data });
     dispatch({ type: STOP_LOADING_UI });
   });
@@ -23,14 +24,16 @@ export const fetchAddresses = () => dispatch => {
 export const createAddress = (address, setErrors, handleClose) => dispatch => {
   dispatch({ type: START_LOADING_BUTTON });
   axios
-    .post("/api/user/addresses/", address)
+    .post("/api/addresses/", address)
     .then(response => {
+        console.log("create address")
       dispatch({ type: CREATE_ADDRESS, payload: response.data });
       handleClose();
       dispatch(addNotif({ message: "Address has been created" }));
       dispatch({ type: STOP_LOADING_BUTTON });
     })
     .catch(error => {
+        console.log("this is eror",error.response.data);
       setErrors(error.response.data);
       dispatch({ type: STOP_LOADING_BUTTON });
     });
@@ -38,7 +41,7 @@ export const createAddress = (address, setErrors, handleClose) => dispatch => {
 
 export const deleteAddress = (id, handleClose) => dispatch => {
   dispatch({ type: START_LOADING_BUTTON });
-  axios.delete(`/api/user/addresses/${id}/`).then(() => {
+  axios.delete(`/api/addresses/${id}/`).then(() => {
     dispatch({ type: DELETE_ADDRESS, payload: id });
     dispatch({ type: STOP_LOADING_BUTTON });
     handleClose();
@@ -57,10 +60,12 @@ export const updateAddress = (
   setErrors,
   handleClose
 ) => dispatch => {
+    console.log("create address")
   dispatch({ type: START_LOADING_BUTTON });
   axios
-    .put(`/api/user/addresses/${id}/`, address)
+    .put(`/api/addresses/${id}/`, address)
     .then(response => {
+
       dispatch({ type: UPDATE_ADDRESS, id, payload: response.data });
       dispatch({ type: STOP_LOADING_BUTTON });
       handleClose();

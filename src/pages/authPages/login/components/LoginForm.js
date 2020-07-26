@@ -38,7 +38,7 @@ const LoginForm = props => {
             required
             fullWidth
             id="phone_number_or_email"
-            label="Phone Number OR Email Address"
+            label="Email Address"
             name="phone_number_or_email"
             autoComplete="phone_number_or_email"
             helperText={errors.phone_number_or_email}
@@ -87,12 +87,12 @@ const LoginForm = props => {
 
           <Grid container>
             <Grid item xs>
-              <MUILink component={Link} to="/reset-password" variant="body2">
+              <MUILink component={Link} to="/reset-password" variant="body2" style={{color:'black'}}>
                 Forgot password?
               </MUILink>
             </Grid>
             <Grid item>
-              <MUILink component={Link} to="/register" variant="body2">
+              <MUILink component={Link} to="/register" variant="body2" style={{color:'black'}}>
                 {"Don't have an account? Register"}
               </MUILink>
             </Grid>

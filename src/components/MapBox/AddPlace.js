@@ -10,9 +10,9 @@ function AddPlace(props) {
     }
     return (
         <div>
-            <Typography>Product's location</Typography>
-            <AutocompletePlace onSelect={handleSelect} />
-            {!place && <p className="text-sm">No place selected</p>}
+            <Typography>{props.title}</Typography>
+            <AutocompletePlace onSelect={handleSelect} defaultValue={props.defaultPlaceName}/>
+            {!place && <Typography variant="caption" style={{paddingLeft:10}}>No place selected</Typography>}
             {
                 place && <div className="flex">
                     <DisplayPlace place={place}/>

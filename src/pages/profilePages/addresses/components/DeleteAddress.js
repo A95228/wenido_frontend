@@ -20,7 +20,7 @@ const DeleteAddress = ({ classes, id, onClose }) => {
 
   const handleClose = () => {
     setOpen(false);
-    onClose();
+    // onClose();
   };
 
   const handleSubmit = () => {

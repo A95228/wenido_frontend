@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -7,126 +7,73 @@ import Button from "@material-ui/core/Button";
 
 // import LoadingButton from "@components/loading/LoadingButton";
 import LoadingButton from "../../../../../components/loading/LoadingButton";
+import AddPlace from "../../../../../components/MapBox/AddPlace";
 
 const EditAddressForm = props => {
-  const {
-    values: {
-      reciver_full_name,
-      reciver_phone_number,
-      state,
-      city,
-      postal_address,
-      postal_code
-    },
-    errors,
-    handleSubmit,
-    handleChange,
-    handleClose,
-    dirty,
-    isValid
-  } = props;
+  console.log(props.address)
+  const [longitude, setLongitude] = useState(props.address.longitude);
+  const [latitude, setLatitude] = useState(props.address.latitude);
+  const [place_name, setPlaceName] = useState(props.address.place_name);
+  const [postal_code, setPostalCode] = useState(props.address.postal_code);
 
+  // useEffect(()=>{
+  //   setLongitude(props.address.longitude)
+  //   setLatitude(props.address.latitude)
+  //   setPlaceName(props.address.place_name)
+  //   console.log("this is ",props.address.place_name)
+  //   setPostalCode(props.address.postal_code)
+  // },[props.address])
+
+  const setCoordinates=(place)=>{
+    setLongitude(place.center[0])
+    setLatitude(place.center[1])
+    setPlaceName(place.place_name)
+  }
+
+  const handleChange=(e)=>{
+    setPostalCode(e.target.value)
+  }
+
+
+
+
+  const {handleClose, errors} = props
+  const handleSubmit=()=>{
+    props.handleSubmit({longitude,latitude,place_name,postal_code})
+  }
   return (
     <React.Fragment>
       <DialogContent dividers>
         <Grid container spacing={2}>
-          <Grid item md={6} xs={12}>
-            <TextField
-              label="Reciver full name"
-              placeholder="Enter reciver full name"
-              variant="outlined"
-              margin="normal"
-              name="reciver_full_name"
-              autoComplete="reciver_full_name"
-              helperText={errors.reciver_full_name}
-              error={Boolean(errors.reciver_full_name)}
-              value={reciver_full_name}
-              onChange={handleChange}
-              required
-              fullWidth
-              autoFocus
-            />
+          <Grid item md={12} xs={12}>
+            <div className="py-5">
+              <AddPlace setCoordinates = {setCoordinates} defaultPlaceName={place_name}/>
+            </div>
           </Grid>
-          <Grid item md={6} xs={12}>
-            <TextField
-              label="Reciver phone number"
-              placeholder="Enter reciver phone number"
-              variant="outlined"
-              margin="normal"
-              name="reciver_phone_number"
-              autoComplete="reciver_phone_number"
-              helperText={errors.reciver_phone_number}
-              error={Boolean(errors.reciver_phone_number)}
-              value={reciver_phone_number}
-              onChange={handleChange}
-              required
-              fullWidth
-            />
-          </Grid>
-          <Grid item md={6} xs={12}>
-            <TextField
-              label="State"
-              placeholder="Enter state"
-              variant="outlined"
-              margin="normal"
-              name="state"
-              autoComplete="state"
-              helperText={errors.state}
-              error={Boolean(errors.state)}
-              value={state}
-              onChange={handleChange}
-              required
-              fullWidth
-            />
-          </Grid>
-          <Grid item md={6} xs={12}>
-            <TextField
-              label="City"
-              placeholder="Enter city"
-              variant="outlined"
-              margin="normal"
-              name="city"
-              autoComplete="city"
-              helperText={errors.city}
-              error={Boolean(errors.city)}
-              value={city}
-              onChange={handleChange}
-              required
-              fullWidth
-            />
-          </Grid>
+          <TextField
+              name={'latitude'}
+              value={latitude}
+              style={{display:'none'}}
+          />
+          <TextField
+              name={'longitude'}
+              value={longitude}
+              style={{display:'none'}}
+          />
           <Grid item md={12} xs={12}>
             <TextField
-              label="Postal address"
-              placeholder="Enter postal address"
-              variant="outlined"
-              margin="normal"
-              name="postal_address"
-              autoComplete="postal_address"
-              rows="3"
-              helperText={errors.postal_address}
-              error={Boolean(errors.postal_address)}
-              value={postal_address}
-              onChange={handleChange}
-              required
-              fullWidth
-              multiline
-            />
-          </Grid>
-          <Grid item md={6} xs={12}>
-            <TextField
-              label="Postal code"
-              placeholder="Enter postal code with out dash"
-              variant="outlined"
-              margin="normal"
-              name="postal_code"
-              autoComplete="postal_code"
-              helperText={errors.postal_code}
-              error={Boolean(errors.postal_code)}
-              value={postal_code}
-              onChange={handleChange}
-              required
-              fullWidth
+                label="Postal code"
+                placeholder="Enter postal code with out dash"
+                variant="outlined"
+                margin="normal"
+                name="postal_code"
+                autoComplete="postal_code"
+                helperText={errors.postal_code}
+                error={Boolean(errors.postal_code)}
+                value={postal_code}
+                onChange={handleChange}
+                required
+                fullWidth
             />
           </Grid>
         </Grid>
@@ -140,7 +87,6 @@ const EditAddressForm = props => {
           size="large"
           variant="outlined"
           color="primary"
-          disabled={!dirty || !isValid}
         >
           Edit
         </LoadingButton>

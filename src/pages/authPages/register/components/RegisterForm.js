@@ -119,7 +119,7 @@ const RegisterForm = props => {
           >
             Register
           </LoadingButton>
-          <MUILink component={Link} to="/login" variant="body2">
+          <MUILink component={Link} to="/login" variant="body2" style={{color:'black'}}>
             {"You already have an account? Log In"}
           </MUILink>
         </form>

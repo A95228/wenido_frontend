@@ -85,7 +85,6 @@ const ProductsDetail = ({ match, history }) => {
 
   useEffect(() => {
     setOrderSize(product.default_size);
-    console.log("this is product",product)
   }, [product]);
 
   useEffect(() => {
@@ -156,15 +155,14 @@ const ProductsDetail = ({ match, history }) => {
 
           </Typography>
           {
-            // console.log("this is product",product.category)
             product.category&&product.category.map((item,key)=>{
               return <Chip label={item} color="primary" style={{marginRight:8,marginBottom:10}}/>
             })
 
           }
           {
-            product.latitude&&
-            <DisplayPlace place={{center: [product.longitude, product.latitude]}} />
+            product.address&&
+            <DisplayPlace place={{center: [product.address.longitude, product.address.latitude]}} />
           }
 
 

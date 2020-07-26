@@ -10,9 +10,16 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import {fetchCategories} from "../../../redux/actions/categoryActions";
-import {addNewProduct} from "../../../redux/actions/profileActions/MyProductActions";
+import {addNewProduct, fetchMyProducts} from "../../../redux/actions/profileActions/MyProductActions";
 import useReactRouter from "use-react-router";
 import AddPlace from "../../../components/MapBox/AddPlace";
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import {fetchAddresses} from "../../../redux/actions/profileActions/AddressActions";
+
+
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small"/>;
 const checkedIcon = <CheckBoxIcon fontSize="small"/>;
@@ -21,6 +28,7 @@ function AddProductForm(props) {
 
     const dispatch = useDispatch();
     const {categories} = useSelector(state => state.category);
+    const categoryOpetions = categories.filter(category=>category.id!=1)
     const [title, setTitle] = useState('');
     const [available, setAvailable] = useState(true);
     const [price, setPrice] = useState('');
@@ -28,11 +36,11 @@ function AddProductForm(props) {
     const [description, setDescription] = useState('');
     const [category, setCategories] = useState([]);
     const [photo_main, setMainPhoto] = useState('');
-
-    const [longitude, setLongitude] = useState('');
-    const [latitude, setLatitude] = useState('');
-
     const [photo_filename, setPhotoFileName] = useState(null);
+    const [address, setAddress] = React.useState('');
+
+    const addresses = useSelector(state => state.profile.addresses);
+    console.log("this is address",addresses);
 
     const handleUploadImage = (event) => {
         setPhotoFileName(event.target.files[0].name);
@@ -43,6 +51,9 @@ function AddProductForm(props) {
     const handleChange = (e) => {
         const data = e.target.value;
         switch (e.target.name) {
+            case 'product_location':
+                setAddress(e.target.value);
+                break;
             case 'title':
                 setTitle(data);
                 break;
@@ -59,6 +70,7 @@ function AddProductForm(props) {
     }
     useEffect(() => {
         dispatch(fetchCategories)
+        dispatch(fetchAddresses());
     }, [])
 
     const handleInputCategories = (event, categories) => {
@@ -68,35 +80,22 @@ function AddProductForm(props) {
         });
         setCategories(tempCategories)
     };
-    const setCoordinates=(place)=>{
-        console.log(place)
-        setLongitude(place.center[0])
-        setLatitude(place.center[1])
-    }
     const handleSubmit = (e) => {
-        console.log("when sub mit", category)
         e.preventDefault()
         let formData = new FormData();
         formData.set('title', title);
         formData.append('price', price);
         formData.append('photo_main', photo_main);
         formData.append('description', description);
-        // formData.append('category', category);
         formData.append('sale_count', sale_count);
         formData.append('available', available);
-        formData.append('longitude', longitude);
-        formData.append('latitude', latitude);
-
+        formData.append('address', address);
         category.map(item=>{
             formData.append('category', item);
         })
-
-        var str_arr = formData.get("category");
-
-        console.log("this is new category array",str_arr); // string format
-
         dispatch(addNewProduct(formData))
-        // history.push('/profile/products');
+        dispatch(fetchMyProducts())
+        history.push('/profile/products');
     }
     const {history} = useReactRouter();
     return (
@@ -112,29 +111,30 @@ function AddProductForm(props) {
                         autoFocus
                     />
                 </Grid>
-                <Grid item md={6} xs={12}>
-                    <TextField
-                        name="price"
-                        label="Price"
-                        fullWidth
-                        value={price}
-                        onChange={handleChange}
-                    />
-                </Grid>
-                <Grid item md={6} xs={12}>
-                    <TextField
-                        name="sale_count"
-                        label="Sale Count"
-                        fullWidth
-                        value={sale_count}
-                        onChange={handleChange}
-                    />
-                </Grid>
+                {/*<Grid item md={6} xs={12}>*/}
+                {/*    <TextField*/}
+                {/*        name="price"*/}
+                {/*        label="Price"*/}
+                {/*        fullWidth*/}
+                {/*        value={price}*/}
+                {/*        onChange={handleChange}*/}
+                {/*    />*/}
+                {/*</Grid>*/}
+
+                {/*<Grid item md={6} xs={12}>*/}
+                {/*    <TextField*/}
+                {/*        name="sale_count"*/}
+                {/*        label="Sale Count"*/}
+                {/*        fullWidth*/}
+                {/*        value={sale_count}*/}
+                {/*        onChange={handleChange}*/}
+                {/*    />*/}
+                {/*</Grid>*/}
                 <Grid item md={6} xs={12}>
                     <Autocomplete
                         multiple
                         id="category"
-                        options={categories}
+                        options={categoryOpetions}
                         disableCloseOnSelect
                         getOptionLabel={(option) => option.title}
                         renderOption={(option, {selected}) => (
@@ -159,8 +159,9 @@ function AddProductForm(props) {
                         variant="contained"
                         color="primary"
                         startIcon={<CloudUploadIcon/>}
-                        style={{textTransform: 'none'}}
+                        style={{textTransform: 'none',height:50}}
                         component={"label"}
+                        fullWidth
                     >
                         <input
                             type="file"
@@ -170,7 +171,11 @@ function AddProductForm(props) {
                         />
                         Product photo
                     </Button>
-                    <p className="bg-yellow-300 rounded-lg overflow-hidden mt-2">{photo_filename}</p>
+                    {
+                        photo_filename&&
+                        <p className="bg-yellow-200 rounded-lg overflow-hidden mt-2 pl-3 py-1">{photo_filename}</p>
+                    }
+
                 </Grid>
                 <Grid item md={12} xs={12}>
                     <TextField
@@ -186,8 +191,24 @@ function AddProductForm(props) {
                 </Grid>
 
                 <Grid item md={12} xs={12}>
-                    <AddPlace setCoordinates = {setCoordinates}/>
+                    {/*<AddPlace setCoordinates = {setCoordinates} title={"Product location"}/>*/}
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Address</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            name="product_location"
+                            value={address}
+                            onChange={handleChange}
+                        >
+                            {
+                                addresses.map((address,key)=>{
+                                    return <MenuItem key={key} value={address.id}>{address.place_name}</MenuItem>
+                                })
+                            }
+                        </Select>
+                    </FormControl>
                 </Grid>
+
                 <Grid item md={12} xs={12}>
                     <LoadingButton
                         type="submit"

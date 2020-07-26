@@ -37,11 +37,11 @@ const Header = () => {
       <IconButton component={RouterLink} to="/profile" color="inherit">
         <ProfileIcon />
       </IconButton>
-      <IconButton component={RouterLink} to="/cart" color="inherit">
-        <Badge color="secondary" badgeContent={user && user.cart_items_count}>
-          <CartIcon />
-        </Badge>
-      </IconButton>
+      {/*<IconButton component={RouterLink} to="/cart" color="inherit">*/}
+      {/*  <Badge color="secondary" badgeContent={user && user.cart_items_count}>*/}
+      {/*    <CartIcon />*/}
+      {/*  </Badge>*/}
+      {/*</IconButton>*/}
     </div>
   );
 

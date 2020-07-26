@@ -65,9 +65,8 @@ const AddressItem = ({ address }) => {
   return (
     <Paper className={classes.root}>
       <div className={classes.wrapperAddress}>
-        <Typography variant="h5">{address.reciver_full_name}</Typography>
         <Typography variant="subtitle1">
-          {address.state} state, {address.city} city, {address.postal_address}
+          {address.place_name}
         </Typography>
       </div>
       <div className={classes.wrapperInfo}>
@@ -76,15 +75,14 @@ const AddressItem = ({ address }) => {
             <ListItemIcon>
               <EmailIcon />
             </ListItemIcon>
-            <ListItemText primary={`postal code: ${address.postal_code}`} />
+            {
+              address.postal_code?
+                <ListItemText primary={`postal code: ${address.postal_code}`} />:
+                  <ListItemText primary={`postal code: ---`} />
+            }
+
           </ListItem>
           <ListItem>
-            <ListItemIcon>
-              <PhoneIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary={`phone number: ${address.reciver_phone_number}`}
-            />
             {!matches && <ListItemActions />}
           </ListItem>
           {matches && (

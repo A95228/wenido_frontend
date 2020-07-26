@@ -2,3 +2,11 @@ html,
 body {
   background-color: #ffffff;
 }
+.gradientButton{
+  background: rgb(233,235,46);
+  background: linear-gradient(0deg, rgba(233,235,46,1) 0%, rgba(162,170,35,1) 100%);
+}
+.gradientButton:hover{
+  background: rgb(206,208,41);
+  background: linear-gradient(0deg, rgba(206,208,41,1) 0%, rgba(145,152,31,1) 100%);
+}

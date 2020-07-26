@@ -18,7 +18,8 @@ const validationSchema = Yup.object({
   first_name: Yup.string().required(),
   last_name: Yup.string().required(),
   national_code: Yup.number(),
-  email: Yup.string().email()
+  email: Yup.string().email(),
+  phone_number:Yup.number(),
 });
 
 const useStyles = makeStyles(theme => ({
@@ -42,7 +43,8 @@ const PersonalInfoEdit = () => {
     first_name,
     last_name,
     national_code,
-    email
+    email,
+    phone_number,
   } = useSelector(state => state.auth.user);
   const classes = useStyles();
   const { history } = useReactRouter();
@@ -51,7 +53,8 @@ const PersonalInfoEdit = () => {
     first_name: first_name || "",
     last_name: last_name || "",
     national_code: national_code || "",
-    email: email || ""
+    email: email || "",
+    phone_number:phone_number || "",
   };
 
   const handleSubmit = (user, { setErrors }) => {

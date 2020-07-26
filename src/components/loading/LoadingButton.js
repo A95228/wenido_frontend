@@ -21,6 +21,7 @@ const LoadingButton = ({ children, ...rest }) => {
     <Button
       className={classes.button}
       {...rest}
+        variant={"contained"}
       disabled={rest.disabled || loading}
     >
       {children}

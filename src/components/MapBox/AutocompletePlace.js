@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {TextField} from '@material-ui/core'
 // import "./Autcomplete.css"
 import axios from 'axios'
 
@@ -6,7 +7,7 @@ export default class AutocompletePlace extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            search: '',
+            search: props.defaultValue,
             results: [],
             isLoading: false,
         }
@@ -58,10 +59,19 @@ export default class AutocompletePlace extends Component {
         })
         this.props.onSelect(place)
     }
+
     render() {
         return (
             <div className="relative">
-                <input className="border rounded w-full h-10 border-blue-500" type="text" value={this.state.search} onChange={this.handleSearchChange} placeholder="Type an address" />
+                <TextField value={this.state.search} onChange={this.handleSearchChange}
+                           placeholder="Type an address"
+                           variant={"outlined"}
+                           fullWidth
+                           name="place_name"
+                           autoFocus
+                           label="Address"
+                           required
+                />
                 <ul className="w-full z-10 absolute bg-white text-black rounded pl-1 shadow">
                     {this.state.results.map(place => (
                         <li
