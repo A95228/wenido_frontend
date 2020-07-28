@@ -48,9 +48,8 @@ const Products = ({history, location}) => {
                 <p className="text-4xl font-bold text-gray-800  w-full mt-40">
                     What do you want to trade?
                 </p>
-                <div className="flex items-center justify-center">
-                    <div className="w-1/2 mt-32"><CategoryCarousel /></div>
-
+                <div className="flex items-center justify-center mt-32">
+                    <CategoryCarousel />
                 </div>
             </Grid>
 

@@ -10,3 +10,7 @@ body {
   background: rgb(206,208,41);
   background: linear-gradient(0deg, rgba(206,208,41,1) 0%, rgba(145,152,31,1) 100%);
 }
+.carousel .thumb{
+  height: 50px;
+  width:50px
+}
